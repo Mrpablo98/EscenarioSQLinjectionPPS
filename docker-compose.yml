@@ -34,9 +34,9 @@ services:
     restart: always
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root_password  # Cambia esto si es necesario
+      MYSQL_ROOT_PASSWORD: root_password 
     ports:
-      - "8080:80"  # Puedes acceder a phpMyAdmin en http://localhost:8080
+      - "8080:80" 
     depends_on:
       - db
     networks:

@@ -5,14 +5,12 @@ $password = "db_password";
 $dbname = "ecommerce_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
+ini_set('mysqli.multi_query', 1);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = 'usuario'; // Reemplaza esto con tu usuario de ejemplo
-    $password = 'contraseña'; // Reemplaza esto con tu contraseña de ejemplo
 
     $input_username = $_POST['username'];
     $input_password = $_POST['password'];
@@ -27,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         $error_message = "Credenciales incorrectas. Inténtalo de nuevo.";
-        echo $error_message;
     }
 
     $conn->close();
@@ -41,10 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
 <body>
     <form method="post" action="">
-        Username: <input type="text" name="username"><br>
-        Password: <input type="text" name="password"><br>
-        <input type="submit" name="submit">
+        Nombre de usuario: <input type="text" name="username"><br>
+        Contraseña: <input type="text" name="password"><br>
+        <input value="Entrar" type="submit" name="submit">
     </form>
+    <p><?php         echo $error_message;
+?></p>
 </body>
 </html>
 

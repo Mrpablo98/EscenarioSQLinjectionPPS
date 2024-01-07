@@ -6,11 +6,12 @@ $password = "db_password";
 $dbname = "ecommerce_db";
 
     $message = "<table><thead><tr><th>Product</th><th>Description</th><th>Price</th></tr></thead>";
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   
         $search_term = $_POST['search'];
 
         
         $conn = new mysqli($servername, $username, $password, $dbname);
+        ini_set('mysqli.multi_query', 1);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
@@ -24,11 +25,13 @@ $dbname = "ecommerce_db";
             }
             $message .= "</table>";
         } else {
-            $message = "No product found";
+            $message = "Error: " . $conn->error;
+
         }
 
         $conn->close();
-    }
+ 
+
 ?>
 
 <html>
@@ -37,8 +40,8 @@ $dbname = "ecommerce_db";
     </head>
 <body>
     <form method="post" action="">
-        Search Product: <input type="text" name="search"><br>
-        <input type="submit" value="Search">
+        <h2>Buscar producto:</h2> <input type="text" name="search" class="productsSeacrh"><br>
+        <input type="submit" value="Buscar">
     </form>
     
    <?php echo $message; ?>
